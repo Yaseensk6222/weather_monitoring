@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Data of Metro Cities</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Weather Monitoring</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/forecast">View 5-Day Forecast</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/preferences">Preferences</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Weather Data of Metro Cities</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Temperature (°C)</th>
+                    <th>Weather Condition</th>
+                    <th>Humidity (%)</th>
+                    <th>Wind Speed (m/s)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for city, data in weather_data.items() %}
+                <tr>
+                    <td>{{ city }}</td>
+                    <td>{{ data.main.temp if data is not none else 'N/A' }}</td>
+                    <td>{{ data.weather[0].description if data is not none else 'N/A' }}</td>
+                    <td>{{ data.main.humidity if data is not none else 'N/A' }}</td>
+                    <td>{{ data.wind.speed if data is not none else 'N/A' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Home</a>
+    </div>
+</body>
+</html>

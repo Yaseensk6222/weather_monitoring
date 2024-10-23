@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Weather App</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Weather Monitor</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="city">Enter City:</label>
+                <input type="text" id="city" name="city" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Weather</button>
+        </form>
+
+        {% if weather %}
+            <h3 class="mt-4">{{ weather['name'] }} Weather</h3>
+            <ul>
+                <li>Main Condition: {{ weather['weather'][0]['main'] }}</li>
+                <li>Temperature: {{ convert_temperature(weather['main']['temp'], session.get('preferred_scale', 'Celsius')) | round(2) }}° {{ session.get('preferred_scale', 'Celsius') }}</li>
+                <li>Humidity: {{ weather['main']['humidity'] }}%</li>
+                <li>Wind Speed: {{ weather['wind']['speed'] }} m/s</li>
+            </ul>
+        {% endif %}
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <div class="mt-4">
+            <a href="/thresholds" class="btn btn-primary">Configure Thresholds</a>
+            <a href="/forecast" class="btn btn-secondary">View 5-Day Forecast</a>
+            <a href="/metro_cities" class="btn btn-secondary">View Metro Cities Weather</a>
+            <a href="/preferences" class="btn btn-secondary">Set Preferences</a>
+        </div>
+    </div>
+</body>
+</html>

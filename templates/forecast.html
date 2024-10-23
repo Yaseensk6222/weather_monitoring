@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>5-Day Weather Forecast</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>5-Day Weather Forecast</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="city">Enter City:</label>
+                <input type="text" id="city" name="city" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Forecast</button>
+        </form>
+        {% if forecast_data %}
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Average Temperature (°C)</th>
+                        <th>Max Temperature (°C)</th>
+                        <th>Min Temperature (°C)</th>
+                        <th>Dominant Condition</th>
+                        <th>Humidity (%)</th>
+                        <th>Wind Speed (m/s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in forecast_data %}
+                        <tr>
+                            <td>{{ item.date }}</td>
+                            <td>{{ convert_temperature(item.avg_temp, session.get('preferred_scale', 'Celsius')) | round(2) }}</td>
+                            <td>{{ convert_temperature(item.max_temp, session.get('preferred_scale', 'Celsius')) | round(2) }}</td>
+                            <td>{{ convert_temperature(item.min_temp, session.get('preferred_scale', 'Celsius')) | round(2) }}</td>
+                            <td>{{ item.condition }}</td>
+                            <td>{{ item.humidity }}</td>
+                            <td>{{ item.wind_speed | round(2) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+        <a href="/metro_cities" class="btn btn-secondary mt-3">View Metro Cities Weather</a>
+    </div>
+</body>
+</html>
