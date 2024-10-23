@@ -58,6 +58,9 @@ Thresholds: Configure temperature and weather condition thresholds, and simulate
 Metro Cities Weather: View real-time weather data for metro cities in India.
 5-Day Forecast: Get the 5-day weather forecast for the selected cities.
 
+
+
+
 weather-monitoring-app/
 │
 ├── app.py                   # Main application logic
@@ -73,6 +76,9 @@ weather-monitoring-app/
 │       └── style.css         # Custom styles
 ├── README.md                 # Project documentation
 ├── .gitignore                # Files to ignore in Git
+
+
+
 Future Enhancements
 Historical Data: Display weather trends using historical data.
 Additional Cities: Allow users to select cities outside of the current metros.
